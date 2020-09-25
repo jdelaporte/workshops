@@ -1,6 +1,7 @@
 # 演習 - まとめ
 
-**Read this in other languages**: <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png)[Française](README.fr.md).
+**Read this in other languages**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md), ![Español](../../../images/col.png) [Español](README.es.md).
 
 * [最終チャレンジとまとめ](#最終チャレンジとまとめ)
   * [ステージの設定](#ステージの設定)
@@ -36,7 +37,7 @@
 
 ## Git リポジトリ
 
-すべてのコードは Github にあるものを使います。https://github.com/ansible/workshop-examples で **Ansible Workshop Examples** の gitリポジトリを確認してください。そこに `role_webcontent Role` を呼び出すプレイブック `webcontent.yml` があります。
+すべてのコードは Github にあるものを使います。https://github.com/ansible/workshop-examples で **Workshop Project** の gitリポジトリを確認してください。そこに `role_webcontent Role` を呼び出すプレイブック `webcontent.yml` があります。
 
 以前の Apache インストールロールと比較すると、大きな違いがあります。`index.html` テンプレートには2つのバージョンがあり、そのソースファイルの一部には変数入力が存在し、タスクによりこのテンプレートがデプロイされます。  
 
@@ -91,7 +92,7 @@
 
     - ターゲットは `Webserver` インベントリーです
 
-    - Playbook は、**Ansible Workshop Examples** の `rhel/apache/webcontent.yml` を使います  
+    - Playbook は、**Workshop Project** の `rhel/apache/webcontent.yml` を使います  
 
     - 2 つの変数の値を、 `dev_content: default dev content` と `prod_content: default prod content` として、**追加変数**欄に入力します。   
 

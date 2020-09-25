@@ -1,7 +1,7 @@
 # Atelier - Les inventaires, identifications et commandes Ad-hoc
 
 **Lisez ceci dans d'autres langues**:
-<br>![uk](../../../images/uk.png) [English](README.md), ![france](../../../images/fr.png)[Française](README.fr.md).
+<br>![uk](../../../images/uk.png) [English](README.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
 
 ## Table des matières
 
@@ -81,12 +81,6 @@ Notez les informations suivantes:
 
 ## Exécution des commandes Ad hoc
 
-Nous allons maintenant examiner les informations d'identification pour accéder à nos hôtes gérés depuis Tower. Dans le cadre du processus d'approvisionnement de cet atelier Ansible, ** les informations d'identification de l'atelier ** ont déjà été configurées.
-
-Dans le menu **RESSOURCES**, choisissez **INFORMATIONS D’IDENTIFICATION**. Maintenant, cliquez sur **Workshop Credential**.
-
-Notez les informations suivantes: ## Exécuter des commandes ad hoc
-
 Il est également possible d'exécuter des commandes ad hoc à partir d'Ansible Tower.
 
    - Dans l'interface utilisateur Web, accédez à **RESSOURCES → Inventaires → Workshop Inventory**
@@ -101,10 +95,10 @@ Il est également possible d'exécuter des commandes ad hoc à partir d'Ansible 
     </tr>
     <tr>
       <td>MODULE</td>
-      <td>MACHINE CREDENTIAL</td>
+      <td>ping</td>
     </tr>
     <tr>
-      <td>ping</td>
+      <td>MACHINE CREDENTIAL</td>
       <td>Workshop Credentials</td>
     </tr>
   </table>

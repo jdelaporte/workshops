@@ -1,7 +1,7 @@
 # Workshop Exercise - Projects & job templates
 
 **Read this in other languages**:
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png)[Française](README.fr.md).
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md), ![Español](../../../images/col.png) [Español](README.es.md).
 
 ## Table Contents
 
@@ -86,7 +86,7 @@ To configure and use this repository as a **Source Control Management (SCM)** sy
     </tr>
     <tr>
       <td>NAME</td>
-      <td>Ansible Workshop Examples</td>
+      <td>Workshop Project</td>
     </tr>
     <tr>
       <td>ORGANIZATION</td>
@@ -165,7 +165,7 @@ Okay, let’s just do that: Go to the **Templates** view, click the ![plus](imag
   </tr>
   <tr>
     <td>PROJECT</td>
-    <td>Ansible Workshop Examples</td>
+    <td>Workshop Project</td>
   </tr>
   <tr>
     <td>PLAYBOOK</td>

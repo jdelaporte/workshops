@@ -18,8 +18,12 @@
           tower_receive:
             inventory:
               - all
-            tower_host: "{{ inventory_hostname|regex_replace('-ansible', '') }}.{{ workshop_name }}.rhdemo.io"
+            tower_host: "{{ inventory_hostname|regex_replace('-ansible-1', '') }}.{{ workshop_name }}.rhdemo.io"
             tower_username: admin
             tower_password: "{{ tower_password }}"
+          register: export_assets
+          until: export_assets is success
+          delay: 3
+          retries: 60
 
-      when: '"ansible" in inventory_hostname'
+      when: '"ansible-1" in inventory_hostname'

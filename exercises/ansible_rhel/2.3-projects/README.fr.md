@@ -1,6 +1,7 @@
 #Atelier - Les projets & modèles
 
-**Lisez ceci dans d'autres langues**: <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png)[Française](README.fr.md).
+**Lisez ceci dans d'autres langues**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md), ![Español](../../../images/col.png) [Español](README.es.md).
 
 ## Table des matières
 
@@ -83,7 +84,7 @@ Pour configurer et utiliser ce référentiel en tant que système **Source Contr
     </tr>
     <tr>
       <td>NOM</td>
-      <td>Ansible Workshop Examples</td>
+      <td>Workshop Project</td>
     </tr>
     <tr>
       <td>ORGANISATION</td>
@@ -162,7 +163,7 @@ D'accord, allons-y: accédez à la vue **Modèles**, cliquez sur le bouton ![Plu
   </tr>
   <tr>
     <td>PROJET</td>
-    <td>Ansible Workshop Examples</td>
+    <td>Workshop Project</td>
   </tr>
   <tr>
     <td>PLAYBOOK</td>

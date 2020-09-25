@@ -1,7 +1,8 @@
 # Ansible Workshop - Ansible for Red Hat Enterprise Linux
 
 **Read this in other languages**:
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images
+<br>![uk](../../images/uk.png) [English](README.md),  ![japan](../../images/japan.png)[日本語](README.ja.md), ![brazil](../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../images/fr.png) [Français](README.fr.md), ![Español](../../images/col.png) [Español](README.es.md).
+<br>
 
 Ansible is a simple yet powerful IT automation engine for application deployment, configuration management, and orchestration that you can learn quickly.
 
@@ -26,8 +27,6 @@ Also have a look at our Ansible Best Practices Deck:
 The time required to do the workshops strongly depends on multiple factors: the number of participants, how familiar those are with Linux in general and how much discussions are done in between.
 
 Having said that, the exercises themselves should take roughly 4-5 hours. The first section is slightly longer than the second one. The accompanying presentation itself adds another hour.
-
-If your experience is different in schedulung these workshops, please let us know and file an issue.
 
 ## Section 1 - Ansible Engine Exercises
 

@@ -7,6 +7,7 @@ teardown: false
 towerinstall: false
 populatetower: true
 website_information: ""
+login_website_information: ""
 dns_information: "No errors with DNS"
 callback_information: "No issue with Ansible Tower callback"
 workshop_type: ""
@@ -23,6 +24,7 @@ valid_workshop_types:
   - storage
   - windows
   - rhel_90
+  - demo
 network_type: multivendor
 valid_network_types:
   - cisco
@@ -30,7 +32,10 @@ valid_network_types:
   - juniper
   - multivendor
 doubleup: false
+create_login_page: true
+attendance: true
 security_console: qradar
 valid_security_console_types:
   - splunk
   - qradar
+ibm_community_grid: true

@@ -1,16 +1,16 @@
 # Workshop Exercise - Conditionals, Handlers and Loops
 
 **Read this in other languages**:
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png)[Française](README.fr.md).
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
 
 ## Table of Contents
 
 * [Objective](#objective)
 * [Guide](#guide)
-* [Step 1 - Conditionals](#step-1---conditionals)
-* [Step 2 - Handlers](#step-2---handlers)
-* [Step 3 - Simple Loops](#step-3---simple-loops)
-* [Step 4 - Loops over hashes](#step-4---loops-over-hashes)
+   * [Step 1 - Conditionals](#step-1---conditionals)
+   * [Step 2 - Handlers](#step-2---handlers)
+   * [Step 3 - Simple Loops](#step-3---simple-loops)
+   * [Step 4 - Loops over hashes](#step-4---loops-over-hashes)
 
 # Objective
 
@@ -66,7 +66,7 @@ Next create the file `ftpserver.yml` on your control host in the `~/ansible-file
 ---
 - name: Install vsftpd on ftpservers
   hosts: all
-  become: yes
+  become: true
   tasks:
     - name: Install FTP server when host in ftpserver group
       yum:
@@ -89,13 +89,13 @@ skipping: [node3]
 changed: [node2]
 ```
 
-# Step 2 - Handlers
+## Step 2 - Handlers
 
 Sometimes when a task does make a change to the system, an additional task or tasks may need to be run. For example, a change to a service’s configuration file may then require that the service be restarted so that the changed configuration takes effect.
 
 Here Ansible’s handlers come into play. Handlers can be seen as inactive tasks that only get triggered when explicitly invoked using the "notify" statement. Read more about them in the [Ansible Handlers](http://docs.ansible.com/ansible/latest/playbooks_intro.html#handlers-running-operations-on-change) documentation.
 
-As a an example, let’s write a Playbook that:
+As a an example, let’s write a playbook that:
 
   - manages Apache’s configuration file `/etc/httpd/conf/httpd.conf` on all hosts in the `web` group
 
@@ -104,7 +104,7 @@ As a an example, let’s write a Playbook that:
 First we need the file Ansible will deploy, let’s just take the one from node1. Remember to replace the IP address shown in the listing below with the IP address from your individual `node1`.
 
 ```
-[student<X>@ansible ansible-files]$ scp 11.22.33.44:/etc/httpd/conf/httpd.conf ~/ansible-files/files/.
+[student<X>@ansible ansible-files]$ scp node1:/etc/httpd/conf/httpd.conf ~/ansible-files/files/.
 student<X>@11.22.33.44's password:
 httpd.conf             
 ```
@@ -115,7 +115,7 @@ Next, create the Playbook `httpd_conf.yml`. Make sure that you are in the direct
 ---
 - name: manage httpd.conf
   hosts: web
-  become: yes
+  become: true
   tasks:
   - name: Copy Apache configuration file
     copy:
@@ -137,15 +137,15 @@ So what’s new here?
   - The "handlers" section defines a task that is only run on notification.
 <hr>
 
-Run the Playbook. We didn’t change anything in the file yet so there should not be any `changed` lines in the output and of course the handler shouldn’t have fired.
+Run the playbook. We didn’t change anything in the file yet so there should not be any `changed` lines in the output and of course the handler shouldn’t have fired.
 
-  - Now change the `Listen 80` line in `/etc/httpd/conf/httpd.conf` to:
+  - Now change the `Listen 80` line in `~/ansible-files/files/httpd.conf` to:
 
 ```ini
 Listen 8080
 ```
 
-  - Run the Playbook again. Now the Ansible’s output should be a lot more interesting:
+  - Run the playbook again. Now the Ansible’s output should be a lot more interesting:
 
       - httpd.conf should have been copied over
 
@@ -154,9 +154,9 @@ Listen 8080
 Apache should now listen on port 8080. Easy enough to verify:
 
 ```bash
-[student1@ansible ansible-files]$ curl http://22.33.44.55
-curl: (7) Failed connect to 22.33.44.55:80; Connection refused
-[student1@ansible ansible-files]$ curl http://22.33.44.55:8080
+[student1@ansible ansible-files]$ curl http://node1
+curl: (7) Failed to connect to node1 port 80: Connection refused
+[student1@ansible ansible-files]$ curl http://node1:8080
 <body>
 <h1>This is a production webserver, take care!</h1>
 </body>
@@ -174,7 +174,7 @@ To show the loops feature we will generate three new users on `node1`. For that,
 ---
 - name: Ensure users
   hosts: node1
-  become: yes
+  become: true
 
   tasks:
     - name: Ensure three users are present
@@ -220,7 +220,7 @@ Let's rewrite the playbook to create the users with additional user rights:
 ---
 - name: Ensure users
   hosts: node1
-  become: yes
+  become: true
 
   tasks:
     - name: Ensure three users are present

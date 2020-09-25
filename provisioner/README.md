@@ -10,19 +10,24 @@ The `github.com/ansible/workshops` contains an Ansible Playbook `provision_lab.y
 | Ansible F5 Workshop | `workshop_type: f5`   |
 | Ansible Security Automation | `workshop_type: security`   |
 | Ansible Windows Automation  | `workshop_type: windows`    |
+| Ansible Demo Mode  | `workshop_type: demo`    |
 
 # Table Of Contents
-- [Requirements](#requirements)
-- [Lab Setup](#lab-setup)
-  - [One Time Setup](#one-time-setup)
-  - [Setup (per workshop)](#setup-per-workshop)
-  - [Accessing student documentation and slides](#Accessing-student-documentation-and-slides)
-- [Lab Teardown](#aws-teardown)
-- [Demos](#demos)
-- [FAQ](../docs/faq.md)
-- [More info on what is happening](#more-info-on-what-is-happening)
-- [Remote Desktop](#remote-desktop)
-- [Getting Help](#getting-help)
+
+* [Ansible AWS training provisioner](#ansible-aws-training-provisioner)
+* [Table Of Contents](#table-of-contents)
+* [Requirements](#requirements)
+* [Lab Setup](#lab-setup)
+   * [One Time Setup](#one-time-setup)
+   * [Setup (per workshop)](#setup-per-workshop)
+   * [IBM Community Grid](#ibm-community-grid)
+   * [Accessing student documentation and slides](#accessing-student-documentation-and-slides)
+   * [DNS](#dns)
+* [Lab Teardown](#lab-teardown)
+* [Demos](#demos)
+* [FAQ](#faq)
+* [More info on what is happening](#more-info-on-what-is-happening)
+* [Getting Help](#getting-help)
 
 # Requirements
 
@@ -61,7 +66,8 @@ dns_type: aws
 admin_password: your_password123
 
 # creates AWS S3 website for ec2_name_prefix.workshop_dns_zone
-create_login_page: true
+# this is defaulted to on as of May 13th, 2020
+create_login_page: false
 
 # Sets the Route53 DNS zone to use for the S3 website
 workshop_dns_zone: rhdemo.io
@@ -69,8 +75,8 @@ workshop_dns_zone: rhdemo.io
 # automatically installs Tower to control node
 towerinstall: true
 
-# automatically licenses Tower if license is provided
-autolicense: true
+# IBM Community Grid - defaults to true if you don't tell the provisioner
+ibm_community_grid: false
 ```
 
 If you want to license it you must copy a license called tower_license.json into this directory.  If you do not have a license already please request one using the [Workshop License Link](https://www.ansible.com/workshop-license).
@@ -83,7 +89,7 @@ For more extra_vars examples, look at the following:
 - [sample-vars-tower-auto.yml](sample_workshops/sample-vars-tower-auto.yml) - example for Tower installation and licensing
 - [sample-vars-rhel-90.yml](sample_workshops/sample-vars-tower-auto.yml) - example for Tower installation and licensing
 - [sample-vars-rhel-90.yml](sample_workshops/sample-vars-rhel-90.yml) - example for `rhel_90` workshop, meant to be taught in 90 minutes
-
+- [sample-vars-demo.yml](sample_workshops/sample-vars-demo.yml) - example for `demo` mode, aggregate of all workshop topologies
 
 2. Run the playbook:
 
@@ -93,6 +99,19 @@ For more extra_vars examples, look at the following:
 
         `tesworkshop-student1-ansible`
 
+## IBM Community Grid
+
+IBM’s World Community Grid is integrated into the workshops.  World Community Grid enables anyone with a Linux, Windows or Mac computer (or an Android smartphone for some projects)  to donate their unused computing power to advance scientific research on topics related to health and sustainability.
+
+By default the key, value pair is set: `ibm_community_grid: true`.  This installs the boinc-client to all Red Hat Enterprise Linux instances (except the Ansible control node).  This can be disabled by setting `ibm_community_grid: false`. By default in the Ansible Automation workshops all research progress (points and CPU time) is added to a joint Ansible account for Red Hat. If you prefer to use your own account, or another project change the following variables:
+
+```
+boinc_auth: "1114316_4080087955dc198a6109a25a56817809"
+boinc_url: "www.worldcommunitygrid.org"
+```
+
+Please read this blog for more information: [https://www.ansible.com/blog/ansible-and-ibm-community-grid](https://www.ansible.com/blog/ansible-and-ibm-community-grid)
+
 ## Accessing student documentation and slides
 
   - Exercises and instructor slides are hosted at [http://ansible.github.io/workshops](http://ansible.github.io/workshops)
@@ -100,7 +119,7 @@ For more extra_vars examples, look at the following:
   - Workbench information is stored in two places after you provision:
     1. in a local directory named after the workshop (e.g. testworkshop/instructor_inventory)
 
-    2. if `create_login_page: true` is enabled in your `extra_vars file,` there will be a website `ec2_name_prefix.workshop_dns_zone` (e.g. `testworkshop.rhdemo.io`)
+    2. By default there will be a website `ec2_name_prefix.workshop_dns_zone` (e.g. `testworkshop.rhdemo.io`)
 
        - **NOTE:** It is possible to change the DNS domain (right now this is only supported via a AWS Route 53 Hosted Zone) using the parameter `workshop_dns_zone` in your `extra_vars.yml` file.
 

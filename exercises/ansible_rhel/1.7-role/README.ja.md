@@ -1,7 +1,7 @@
 # 演習 - Roles: Playbook を再利用可能にする
 
 **Read this in other languages**:
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png)[Française](README.fr.md).
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
 
 * [ステップ 1 - Ansible Roles 構造を理解する](#ステップ-1---ansible-roles-構造を理解する)
 * [ステップ 2 - 基本的な Role ディレクトリ構造を作成する](#ステップ-2---基本的な-role-ディレクトリ構造を作成する)
@@ -249,7 +249,7 @@ Listen 8080
 ---
 - name: use apache_vhost role playbook
   hosts: node2
-  become: yes
+  become: true
 
   pre_tasks:
     - debug:
@@ -274,7 +274,7 @@ Playbook を実行する準備が整いましたので、実行してみまし�
 `node2` に対して curl コマンドを実行して、 Roles が機能していることを確認します。バーチャルホストのポートは8080です。  
 
 ```bash
-[student<X>@ansible ansible-files]$ curl -s http://<node2>:8080
+[student<X>@ansible ansible-files]$ curl -s http://node2:8080
 simple vhost index
 ```
 

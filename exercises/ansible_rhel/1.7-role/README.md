@@ -1,18 +1,19 @@
 # Workshop Exercise - Roles: Making your playbooks reusable
 
 **Read this in other languages**:
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png)[Française](README.fr.md).
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
 
 ## Table of Contents
 
 * [Objective](#objective)
 * [Guide](#guide)
-* [Step 1 - Understanding the Ansible Role Structure](#step-1---understanding-the-ansible-role-structure)
-* [Step 2 - Create a Basic Role Directory Structure](#step-2---create-a-basic-role-directory-structure)
-* [Step 3 - Create the Tasks File](#step-3---create-the-tasks-file)
-* [Step 4 - Create the handler](#step-4---create-the-handler)
-* [Step 5 - Create the web.html and vhost configuration file template](#step-5---create-the-indexhtml-and-vhost-configuration-file-template)
-* [Step 6 - Test the role](#step-6---test-the-role)
+   * [Step 1 - Understanding the Ansible Role Structure](#step-1---understanding-the-ansible-role-structure)
+   * [Step 2 - Create a Basic Role Directory Structure](#step-2---create-a-basic-role-directory-structure)
+   * [Step 3 - Create the Tasks File](#step-3---create-the-tasks-file)
+   * [Step 4 - Create the handler](#step-4---create-the-handler)
+   * [Step 5 - Create the web.html and vhost configuration file template](#step-5---create-the-webhtml-and-vhost-configuration-file-template)
+   * [Step 6 - Test the role](#step-6---test-the-role)
+* [Troubleshooting problems](#troubleshooting-problems)
 
 # Objective
 
@@ -24,12 +25,11 @@ This exercise will cover:
 - the folder structure of an Ansible Role
 - how to build an Ansible Role
 - creating an Ansible Play to use and execute a role
+- using Ansible to create a Apache VirtualHost on node2
 
 # Guide
 
 ## Step 1 - Understanding the Ansible Role Structure
-
-Roles are basically automation built around *include* directives and really don’t contain much additional magic beyond some improvements to search path handling for referenced files.
 
 Roles follow a defined directory structure; a role is named by the top level directory. Some of the subdirectories contain YAML files, named `main.yml`. The files and templates subdirectories can contain objects referenced by the YAML files.
 
@@ -96,6 +96,27 @@ Have a look at the role directories and their content:
 [student<X>@ansible ansible-files]$ tree roles
 ```
 
+```
+roles/
+└── apache_vhost
+    ├── defaults
+    │   └── main.yml
+    ├── files
+    ├── handlers
+    │   └── main.yml
+    ├── meta
+    │   └── main.yml
+    ├── README.md
+    ├── tasks
+    │   └── main.yml
+    ├── templates
+    ├── tests
+    │   ├── inventory
+    │   └── test.yml
+    └── vars
+        └── main.yml
+```
+
 ## Step 3 - Create the Tasks File
 
 The `main.yml` file in the tasks subdirectory of the role should do the following:
@@ -110,9 +131,9 @@ The `main.yml` file in the tasks subdirectory of the role should do the followin
 
 > **WARNING**
 >
-> **The `main.yml` (and other files possibly included by main.yml) can only contain tasks, *not* complete Playbooks!**
+> **The `main.yml` (and other files possibly included by main.yml) can only contain tasks, *not* complete playbooks!**
 
-Change into the `roles/apache_vhost` directory. Edit the `tasks/main.yml` file:
+Edit the `roles/apache_vhost/tasks/main.yml` file:
 
 ```yaml
 ---
@@ -148,7 +169,7 @@ Next we add two more tasks to ensure a vhost directory structure and copy html c
 - name: deliver html content
   copy:
     src: web.html
-    dest: "/var/www/vhosts/{{ ansible_hostname }}"
+    dest: "/var/www/vhosts/{{ ansible_hostname }}/index.html"
 ```
 <!-- {% endraw %} -->
 
@@ -193,7 +214,7 @@ The full `tasks/main.yml` file is:
 - name: deliver html content
   copy:
     src: web.html
-    dest: "/var/www/vhosts/{{ ansible_hostname }}"
+    dest: "/var/www/vhosts/{{ ansible_hostname }}/index.html"
 
 - name: template vhost file
   template:
@@ -210,7 +231,7 @@ The full `tasks/main.yml` file is:
 
 ## Step 4 - Create the handler
 
-Create the handler in the file `handlers/main.yml` to restart httpd when notified by the template task:
+Create the handler in the file `roles/apache_vhost/handlers/main.yml` to restart httpd when notified by the template task:
 
 ```yaml
 ---
@@ -227,11 +248,13 @@ Create the HTML content that will be served by the webserver.
 
   - Create an web.html file in the "src" directory of the role, `files`:
 
-```bash
-[student<X>@ansible ansible-files]$ echo 'simple vhost index' > ~/ansible-files/roles/apache_vhost/files/web.html
+```
+$ echo 'simple vhost index' > ~/ansible-files/roles/apache_vhost/files/web.html
 ```
 
   - Create the `vhost.conf.j2` template file in the role's `templates` subdirectory.
+
+`$ cat roles/apache_vhost/templates/vhost.conf.j2`
 
 <!-- {% raw %} -->
 ```
@@ -261,7 +284,7 @@ You are ready to test the role against `node2`. But since a role cannot be assig
 ---
 - name: use apache_vhost role playbook
   hosts: node2
-  become: yes
+  become: true
 
   pre_tasks:
     - debug:
@@ -286,11 +309,27 @@ Now you are ready to run your playbook:
 Run a curl command against `node2` to confirm that the role worked:
 
 ```bash
-[student<X>@ansible ansible-files]$ curl -s http://22.33.44.55:8080
+[student<X>@ansible ansible-files]$ curl -s http://node2:8080
 simple vhost index
 ```
 
-All looking good? Congratulations! You have successfully completed the Ansible Engine Workshop Exercises!
+Congratulations! You have successfully completed this exercise!
+
+# Troubleshooting problems
+
+Did the final curl work?  You can see what ports the web server is running by using the netstat command:
+
+```
+$ sudo netstat -tulpn
+```
+
+There should be a line like this:
+
+```
+tcp6       0      0 :::8080                 :::*                    LISTEN      25237/httpd
+```
+
+If it is not working make sure that `/etc/httpd/conf/httpd.conf` has `Listen 8080` in it.  This should have been changed by [Exercise 1.5](../1.5-handlers)
 
 ----
 **Navigation**

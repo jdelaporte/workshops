@@ -1,7 +1,7 @@
 # Exercício - Roles: Tornando seus playbooks reutilizáveis
 
 **Leia em outras linguagens**:
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png)[Française](README.fr.md).
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
 
 * [Passo 1 - Entendendo a estrutura da Role](#passo-1---entendendo-a-estrutura-da-role)
 * [Passo 2 - Criando uma estrutura básica de diretório de roles](#passo-2---criando-uma-estrutura-básica-de-diretório-de-roles)
@@ -247,7 +247,7 @@ Você está pronto para testar a role no `node2`. Mas como uma role não pode se
 ---
 - name: Use apache_vhost role playbook
   hosts: node2
-  become: yes
+  become: true
 
   pre_tasks:
     - debug:
@@ -272,7 +272,7 @@ Agora você está pronto para executar seu playbook:
 Execute um comando curl no `node2` para confirmar que a role funcionou:
 
 ```bash
-[student<X>@ansible ansible-files]$ curl -s http://22.33.44.55:8080
+[student<X>@ansible ansible-files]$ curl -s http://node2:8080
 vhost index
 ```
 

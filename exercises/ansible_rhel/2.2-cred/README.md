@@ -1,7 +1,7 @@
 # Workshop Exercise - Inventories, credentials and ad hoc commands
 
 **Read this in other languages**:
-<br>![uk](../../../images/uk.png) [English](README.md), ![france](../../../images/fr.png)[Française](README.fr.md).
+<br>![uk](../../../images/uk.png) [English](README.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
 
 ## Table of Contents
 
@@ -96,10 +96,10 @@ It is possible to run run ad hoc commands from Ansible Tower as well.
     </tr>
     <tr>
       <td>MODULE</td>
-      <td>MACHINE CREDENTIAL</td>
+      <td>ping</td>
     </tr>
     <tr>
-      <td>ping</td>
+      <td>MACHINE CREDENTIAL</td>
       <td>Workshop Credentials</td>
     </tr>
   </table>

@@ -1,6 +1,7 @@
 # Atelier - Rôles: Rendre vos playbook réutilisables
 
-**Lisez ceci dans d'autres langues**: <br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png)[Française](README.fr.md).
+**Lisez ceci dans d'autres langues**:
+<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![brazil](../../../images/brazil.png) [Portugues do Brasil](README.pt-br.md), ![france](../../../images/fr.png) [Française](README.fr.md),![Español](../../../images/col.png) [Español](README.es.md).
 
 ## Table des matières
 
@@ -145,7 +146,7 @@ Ensuite, nous ajoutons deux tâches supplémentaires pour garantir une structure
 - name: deliver html content
   copy:
     src: web.html
-    dest: "/var/www/vhosts/{{ ansible_hostname }}"
+    dest: "/var/www/vhosts/{{ ansible_hostname }}/index.html"
 ```
 <!-- {% endraw %} -->
 
@@ -258,7 +259,7 @@ Vous êtes prêt à tester le rôle sur `node2`. Mais comme un rôle ne peut pas
 ---
 - name: use apache_vhost role playbook
   hosts: node2
-  become: yes
+  become: true
 
   pre_tasks:
     - debug:
@@ -283,7 +284,7 @@ Vous êtes maintenant prêt à exécuter votre playbook:
 Exécutez une commande curl contre `node2` pour confirmer que le rôle a fonctionné:
 
 ```bash
-[student<X>@ansible ansible-files]$ curl -s http://22.33.44.55:8080
+[student<X>@ansible ansible-files]$ curl -s http://node2:8080
 simple vhost index
 ```
 
